@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" class="h-full">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="css/css.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @theme {
+        --color-primary: #ccc;
+      }
+    </style>
+  </head>
+  <body class="h-full">
+    <div class="h-full w-full flex items-center justify-center">
+      <section id="s0"></section>
+      <section>Sorry, the website is currently undergoing renovation.</section>
+      <section>welcome</section>
+      <section>to</section>
+      <section>my</section>
+      <section>website</section>
+    </div>
+
+    <script src="./js/wheel.js"></script>
+    <script src="./js/animation.js"></script>
+    <script>
+      const sections = document.querySelectorAll("section");
+
+      function handleStep(step) {
+        console.log(step);
+      }
+
+      function init() {
+        for (const e of sections) {
+          e.style.display = "none";
+        }
+        sections[0].style.display = "";
+      }
+
+      function toggleSection(index) {
+        fadeOutCallback(sections[index - 1], 1000, () => {
+          sections[index - 1].style.display = "none";
+          sections[index].style.display = "";
+          fadeIn(sections[index], 2000);
+        });
+      }
+    </script>
+
+    <script>
+      init();
+      setTimeout(() => {
+        toggleSection(1);
+      }, 2000);
+    </script>
+  </body>
+</html>
