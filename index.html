@@ -14,12 +14,11 @@
   </head>
   <body class="h-full">
     <div class="h-full w-full flex items-center justify-center">
-      <section id="s0"></section>
-      <section>Sorry, Please Waiting......</section>
-      <section>welcome</section>
-      <section>to</section>
-      <section>my</section>
-      <section>website</section>
+      <section class="w-full h-full bg-blue-300"></section>
+      <section class="w-full h-full bg-yellow-300"></section>
+      <section class="w-full h-full bg-orange-300"></section>
+      <section class="w-full h-full bg-red-300"></section>
+      <section class="w-full h-full bg-green-300"></section>
     </div>
 
     <script src="./js/wheel.js"></script>
@@ -45,13 +44,22 @@
           fadeIn(sections[index], 2000);
         });
       }
+
+      function rotByIndex(lastIndex, index) {
+        sections[lastIndex].style = {animation: 'rot-out 1s ease-in-out'}
+        setTimeout(() => {
+          sections[index].style = {animation: 'rot-in 1s ease-in-out'}
+        }, 1000);
+      }
+
     </script>
 
     <script>
       init();
-      setTimeout(() => {
-        toggleSection(1);
-      }, 2000);
+      rotByIndex(0, 1)
+      // setTimeout(() => {
+      //   toggleSection(1);
+      // }, 2000);
     </script>
   </body>
 </html>
