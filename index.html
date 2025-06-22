@@ -1,65 +1,210 @@
 <!DOCTYPE html>
-<html lang="en" class="h-full">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="css/css.css" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-    <style type="text/tailwindcss">
-      @theme {
+<html lang="en" class="h-full rounded-md">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+  <link rel="stylesheet" href="css/css.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
         --color-primary: #ccc;
       }
+      html, body {
+        /* overflow-x: hidden; */
+      }
+      section {
+        height: 100vh;
+        width: 100%;
+      }
+      #sec1 {
+        background: black;
+      }
+      #sec2 {
+      background: slateblue;
+      }
+      #sec3 {
+        background: pink;
+      }
+      .box {
+      }
+      .abscenter {
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+      }
+      .frontbg {
+        /* mix-blend-mode: overlay; */
+      }
     </style>
-  </head>
-  <body class="h-full">
-    <div class="h-full w-full flex items-center justify-center">
-      <section class="w-full h-full bg-blue-300"></section>
-      <section class="w-full h-full bg-yellow-300"></section>
-      <section class="w-full h-full bg-orange-300"></section>
-      <section class="w-full h-full bg-red-300"></section>
-      <section class="w-full h-full bg-green-300"></section>
+</head>
+
+<body class="h-full rounded-md">
+
+  <section id="sec1" class="relative">
+
+    <div class="size-[2em] absolute abscenter  rounded-sm box"></div>
+    <div class=" opacity-0 absolute abscenter welcomeText text-center font-mono text-lg">Hello !
+    </div>
+    <div class=" h-full">
+      <canvas id="matrixCanvas" class="w-full h-full opacity-0 matrix"></canvas>
+      <div class="text-white absolute top-0  left-0 h-full   opacity-0 bg-[#e5e5e5] frontbg"></div>
+      <div class="text-white absolute top-0  right-0 h-full   opacity-0 bg-[#e5e5e5] frontbg"></div>
     </div>
 
-    <script src="./js/wheel.js"></script>
-    <script src="./js/animation.js"></script>
-    <script>
-      const sections = document.querySelectorAll("section");
+  </section>
+  <section id="sec3"></section>
 
-      function handleStep(step) {
-        console.log(step);
+
+  <script src="./js/gsap.min.js"></script>
+  <script src="./js/ScrollTrigger.min.js"></script>
+  <script>
+    gsap.registerPlugin(ScrollTrigger);
+
+    // let t0 = gsap.timeline({})
+    // t0.to(".box", {
+    //   rotation: 360,
+    //   scale: 2,
+    //   background: "#fff",
+    //   duration: 1,
+    //   ease: 'power1.inOut'
+    // })
+    //   .to(".box", {
+    //     scale: 26,
+    //     rotation: 720,
+    //     duration: 1,
+    //     ease: 'power1.inOut'
+    //   })
+    //   .to(".box", {
+    //     scale: 100,
+    //     rotation: 720 + 360,
+    //     duration: 1,
+    //     ease: 'power1.inOut'
+    //   })
+    //   .to(".box", {
+    //     opacity: 0,
+    //     duration: 1,
+    //     ease: 'power1.inOut'
+    //   })
+    //   .to("#sec1", {
+    //     background: '#fff',
+    //     duration: 0,
+    //     ease: 'power1.inOut'
+    //   }, "<+0")
+    //   .to('.welcomeText', { opacity: 1, duration: 1, ease: 'power1.inOut' }, "<+0")
+
+    // 创建一个 timeline，跟随滚动
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: "#sec1",
+        start: "top top",
+        end: "+=4000",
+        pin: true,
+        scrub: true,
+        // markers: true
       }
+    });
+    tl
+      .to(".box", {
+        rotation: 360,
+        scale: 2,
+        background: "#fff",
+        duration: 0.5,
+        ease: 'power1.inOut'
+      })
+      .to(".box", {
+        scale: 26,
+        rotation: 720,
+        duration: 0.5,
+        ease: 'power1.inOut'
+      })
+      .to(".box", {
+        scale: 60,
+        rotation: 720 + 360,
+        duration: 0.5,
+        ease: 'power1.inOut'
+      })
+      .to(".box", {
+        opacity: 0,
+        duration: 0.2,
+        ease: 'power1.inOut'
+      })
+      .to("#sec1", {
+        background: '#fff',
+        duration: 0,
+        ease: 'power1.inOut'
+      }, "<+0")
+      .to('.welcomeText', { opacity: 1, duration: 0.5, ease: 'power1.inOut' }, "<+0")
+      .to('.welcomeText', { opacity: 0, duration: 0.5, ease: 'power1.inOut' })
+      .to('.frontbg', { opacity: 1, duration: 0.5, ease: 'power1.inOut' })
+      .to('.matrix', { opacity: 1, duration: 1, ease: 'sine.inOut' })
+      .to('.frontbg', {
+        scale: 1, width: 0, duration: 1, onUpdate() {
+          const w = document.querySelector('.frontbg').style.width.replace('px', '')
+          const t = w / 4
+          drawMatrix(35, window.innerWidth - t, window.innerHeight - t)
+        },
+        ease: 'sine.inOut'
+      })
+      .to('.frontbg', {
+        delay: 1
+      })
 
-      function init() {
-        for (const e of sections) {
-          e.style.display = "none";
+  </script>
+
+
+  <script>
+    const canvas = document.getElementById("matrixCanvas");
+    const ctx = canvas.getContext("2d");
+
+
+
+
+
+    function drawMatrix(space = 30, w, h) {
+      w = w ?? window.innerWidth;
+      h = h ?? window.innerHeight;
+      canvas.width = w;
+      canvas.height = h;
+
+      ctx.fillStyle = "#111";
+      ctx.fillRect(0, 0, w, h);
+
+      const centerX = w / 2;
+      const centerY = h / 2;
+
+      const startX = centerX - Math.floor(centerX / space) * space;
+      const startY = centerY - Math.floor(centerY / space) * space;
+
+      const rows = Math.ceil(h / space);
+      const cols = Math.ceil(w / space);
+
+      for (let row = -rows; row <= rows; row++) {
+        for (let col = -cols; col <= cols; col++) {
+          const x = centerX + col * space;
+          const y = centerY + row * space;
+
+          if (x >= 0 && x < w && y >= 0 && y < h) {
+            ctx.fillStyle = "white";
+            ctx.beginPath();
+            ctx.arc(x, y, 1, 0, Math.PI * 2);
+            ctx.fill();
+          }
         }
-        sections[0].style.display = "";
       }
+    }
+    drawMatrix();
 
-      function toggleSection(index) {
-        fadeOutCallback(sections[index - 1], 1000, () => {
-          sections[index - 1].style.display = "none";
-          sections[index].style.display = "";
-          fadeIn(sections[index], 2000);
-        });
-      }
+    function s() {
+      const bg = document.querySelectorAll('.frontbg')
+      bg.forEach(e => {
+        e.style.width = ((window.innerWidth / 2) - 10) + 'px'
+      })
+    }
 
-      function rotByIndex(lastIndex, index) {
-        sections[lastIndex].style = {animation: 'rot-out 1s ease-in-out'}
-        setTimeout(() => {
-          sections[index].style = {animation: 'rot-in 1s ease-in-out'}
-        }, 1000);
-      }
+    s()
+  </script>
+</body>
 
-    </script>
-
-    <script>
-      init();
-      rotByIndex(0, 1)
-      // setTimeout(() => {
-      //   toggleSection(1);
-      // }, 2000);
-    </script>
-  </body>
 </html>

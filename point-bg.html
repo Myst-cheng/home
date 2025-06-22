@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%; margin: 0; padding: 0">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="height: 100%;">
+    <div>
+        <canvas id="matrixCanvas" class="w-full h-full opacity-0  m-auto translate-y-150 matrix"></canvas>
+    </div>
+
+    <script>
+        const canvas = document.getElementById("matrixCanvas");
+        const ctx = canvas.getContext("2d");
+
+        function drawMatrix() {
+            const w = window.innerWidth
+            const h = window.innerHeight
+            canvas.width = w;
+            canvas.height = h
+            const spw = 30
+            const sph = 30
+            ctx.fillStyle = "black"; 
+            ctx.fillRect(0, 0, w, h);
+            for (let y = sph / 2; y < h; y += sph) {
+                for (let x = spw / 2; x < w; x += spw) {
+                    ctx.fillStyle = "white";
+                    ctx.beginPath();
+                    ctx.arc(x, y, 1, 0, Math.PI * 2);
+                    ctx.fill();
+                }
+            }
+        }
+        drawMatrix();
+    </script>
+</body>
+
+</html>
