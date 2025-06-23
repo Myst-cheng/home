@@ -76,33 +76,30 @@
     </script>
 
     <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-
+     
+     const canvas = document.getElementById('canvas');
+     const ctx = canvas.getContext('2d');
        
 
         resizeCanvas(canvas, ctx);
 
         function draw(radius) {
-            const cw = canvas.width;
-            const ch = canvas.height;
-            // 填充矩形（这里直接填满整个画布）
+            
+            const cw = window.innerWidth;
+            const ch = window.innerHeight;
             ctx.fillStyle = 'blue';
             ctx.fillRect(0, 0, cw, ch);
-            // 设置合成模式：圆形将“抠掉”矩形
             ctx.globalCompositeOperation = 'destination-out';
-            // 画圆抠掉
             ctx.beginPath();
             ctx.arc(cw / 2, ch / 2, radius, 0, Math.PI * 2);
             ctx.fill();
-            // 恢复合成模式
             ctx.globalCompositeOperation = 'source-over';
         }
 
         const circle = {
             radius: 100,
-            w: 1920,
-            h: 1080,
+            w: window.innerWidth,
+            h: window.innerHeight,
             space: 30
         }
 

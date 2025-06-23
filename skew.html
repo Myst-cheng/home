@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>扭曲字体效果</title>
+    <style>
+        .curved-text {
+            font-size: 48px;
+            font-weight: bold;
+            color: white;
+            background-color: black;
+            padding: 20px;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            font-family: 'console';
+        }
+    </style>
+</head>
+
+<body style="height: 100vh; background-color: black;">
+    <div class="curved-text"> <span class="char">W</span> <span class="char">W</span> <span class="char">W</span> <span
+            class="char">W</span><span class="char">W</span><span class="char">W</span><span class="char">W</span><span
+            class="char">W</span><span class="char">W</span> <span class="char">W</span> </div>
+
+    <div class="curved-text"> <span class="char1">W</span> <span class="char1">W</span> <span class="char1">W</span>
+        <span class="char1">W</span><span class="char1">W</span><span class="char1">W</span><span
+            class="char1">W</span><span class="char1">W</span><span class="char1">W</span> <span class="char1">W</span>
+    </div>
+
+   
+<div style="margin-top: 80px;"></div>
+
+    <div class="curved-text" > <span class="char4">W</span> <span class="char4">W</span> <span class="char4">W</span>
+        <span class="char4">W</span><span class="char4">W</span><span class="char4">W</span><span
+            class="char4">W</span><span class="char4">W</span><span class="char4">W</span> <span class="char4">W</span>
+    </div>
+
+    <div class="curved-text"> <span class="char5">W</span> <span class="char5">W</span> <span class="char5">W</span>
+        <span class="char5">W</span><span class="char5">W</span><span class="char5">W</span><span
+            class="char5">W</span><span class="char5">W</span><span class="char5">W</span> <span class="char5">W</span>
+    </div>
+
+
+    <script>
+
+        function c(rate, cls, inv=false) {
+            const arr = document.querySelectorAll(cls)
+
+            const length = arr.length
+
+            const maxSize = 190
+            let l = 0;
+            let r = arr.length - 1
+
+
+            let cnt = 0
+            while (l <= r) {
+                arr[l].style.fontSize = (maxSize - cnt) + 'px';
+                arr[l].style.transform = `translateY(${cnt * 4.5 * (inv ? -1 : 1)}%)`
+                arr[r].style.fontSize = (maxSize - cnt) + 'px'
+                arr[r].style.transform = `translateY(${cnt * 4.5  * (inv ? -1 : 1)}%)`
+                l++;
+                r--;
+                cnt += rate;
+            }
+        }
+
+        c(3, '.char')
+        c(2, '.char1')
+        c(2, '.char4', true)
+        c(3, '.char5', true)
+
+    </script>
+</body>
+
+</html>

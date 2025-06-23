@@ -11,8 +11,13 @@
     @theme {
         --color-primary: #ccc;
       }
+      @font-face {
+        font-family: 'flw';
+        src: url(./font/Pencil-2.ttf);
+      }
       html, body {
         /* overflow-x: hidden; */
+        font-family: 'flw';
       }
       section {
         height: 100vh;
@@ -34,11 +39,21 @@
         top: 50%;
         transform: translate(-50%, -50%);
       }
+      .abstop {
+        left: 50%;
+        top: 0;
+        transform: translate(-50%, 0);
+      }
+      .box {
+      }
       .frontbg {
         /* mix-blend-mode: overlay; */
       }
       canvas {
             display: block;
+        }
+        .span {
+          /* flex-direction: row; */
         }
     </style>
 </head>
@@ -46,115 +61,127 @@
 <body class="h-full rounded-md">
 
   <section id="sec1" class="relative">
-
-    <div class="size-[2em] absolute abscenter  rounded-sm box"></div>
-    <div class=" opacity-0 absolute abscenter welcomeText text-center font-mono text-lg">Hello !
+    <canvas id="matrixCanvas" class="absolute w-full h-full opacity-1 matrix"></canvas>
+    <canvas id="mask" class="absolute"></canvas>
+    <div class="size-[2em] absolute abscenter box opacity-10 bg-white"></div>
+    <div class="absolute abscenter text-[6em] opacity-0 name-2  xc">
+      <div class="char char1">C</div>
+      <div class="char char2">H</div>
+      <div class="char char3">E</div>
+      <div class="char char4">N</div>
+      <div class="char char5">G</div>
     </div>
-    <div class=" h-full">
-      <canvas id="matrixCanvas" class="w-full h-full opacity-0 matrix"></canvas>
-      <div class="text-white absolute top-0  left-0 h-full   opacity-0 bg-[#e5e5e5] frontbg"></div>
-      <div class="text-white absolute top-0  right-0 h-full   opacity-0 bg-[#e5e5e5] frontbg"></div>
-    </div>
-
   </section>
   <section id="sec3"></section>
 
 
   <script src="./js/gsap.min.js"></script>
   <script src="./js/ScrollTrigger.min.js"></script>
+
+  <script>
+    const mask = document.getElementById('mask');
+    const maskCtx = mask.getContext('2d');
+
+
+
+    function draw(radius) {
+      const cw = window.innerWidth;
+      const ch = window.innerHeight;
+      mask.width = cw;
+      mask.height = ch
+      maskCtx.fillStyle = 'blue';
+      maskCtx.fillRect(0, 0, cw, ch);
+      maskCtx.globalCompositeOperation = 'destination-out';
+      maskCtx.beginPath();
+      maskCtx.arc(cw / 2, ch / 2, radius, 0, Math.PI * 2);
+      maskCtx.fill();
+      maskCtx.globalCompositeOperation = 'source-over';
+    }
+
+
+
+  </script>
+
+
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
-    // let t0 = gsap.timeline({})
-    // t0.to(".box", {
-    //   rotation: 360,
-    //   scale: 2,
-    //   background: "#fff",
-    //   duration: 1,
-    //   ease: 'power1.inOut'
-    // })
-    //   .to(".box", {
-    //     scale: 26,
-    //     rotation: 720,
-    //     duration: 1,
-    //     ease: 'power1.inOut'
-    //   })
-    //   .to(".box", {
-    //     scale: 100,
-    //     rotation: 720 + 360,
-    //     duration: 1,
-    //     ease: 'power1.inOut'
-    //   })
-    //   .to(".box", {
-    //     opacity: 0,
-    //     duration: 1,
-    //     ease: 'power1.inOut'
-    //   })
-    //   .to("#sec1", {
-    //     background: '#fff',
-    //     duration: 0,
-    //     ease: 'power1.inOut'
-    //   }, "<+0")
-    //   .to('.welcomeText', { opacity: 1, duration: 1, ease: 'power1.inOut' }, "<+0")
+
 
     // 创建一个 timeline，跟随滚动
     let tl = gsap.timeline({
+      // scrollTrigger: {
+      //   trigger: "#sec1",
+      //   start: "top top",
+      //   end: "+=4000",
+      //   pin: true,
+      //   scrub: true,
+      //   markers: true
+      // }
+    });
+    const halfW = window.innerWidth / 2
+    tl
+
+      .to(".box", {
+        rotation: 360,
+        scale: 2,
+        opacity: 1,
+        borderRadius: '30%',
+        duration: 1,
+        ease: 'power1.inOut'
+      })
+      .to(".box", {
+        rotation: 360 + 360,
+        borderRadius: '50%',
+        duration: 1,
+        ease: 'power1.inOut'
+      })
+      .to(".box", {
+        scale: 20,
+        duration: 1,
+        ease: 'elastic.out',
+      })
+      .to(".name-2", {
+        opacity: 1,
+        duration: 0.5,
+        fontSize: '4em',
+        ease: 'power1.inOut'
+      })
+
+
+    let t2 = gsap.timeline({
       scrollTrigger: {
         trigger: "#sec1",
         start: "top top",
         end: "+=4000",
         pin: true,
         scrub: true,
-        // markers: true
+        markers: true
       }
     });
-    tl
-      .to(".box", {
-        rotation: 360,
-        scale: 2,
-        background: "#fff",
-        duration: 0.5,
-        ease: 'power1.inOut'
-      })
-      .to(".box", {
-        scale: 26,
-        rotation: 720,
-        duration: 0.5,
-        ease: 'power1.inOut'
-      })
-      .to(".box", {
-        scale: 60,
-        rotation: 720 + 360,
-        duration: 0.5,
-        ease: 'power1.inOut'
-      })
-      .to(".box", {
-        opacity: 0,
-        duration: 0.2,
-        ease: 'power1.inOut'
-      })
-      .to("#sec1", {
-        background: '#fff',
-        duration: 0,
-        ease: 'power1.inOut'
-      }, "<+0")
-      .to('.welcomeText', { opacity: 1, duration: 0.5, ease: 'power1.inOut' }, "<+0")
-      .to('.welcomeText', { opacity: 0, duration: 0.5, ease: 'power1.inOut' })
-      .to('.frontbg', { opacity: 1, duration: 0.5, ease: 'power1.inOut' })
-      .to('.matrix', { opacity: 1, duration: 1, ease: 'sine.inOut' })
-      .to('.frontbg', {
-        scale: 1, width: 0, duration: 1, onUpdate() {
-          const w = document.querySelector('.frontbg').style.width.replace('px', '')
-          const t = w / 4
-          drawMatrix(35, window.innerWidth - t, window.innerHeight - t)
-        },
-        ease: 'sine.inOut'
-      })
-      .to('.frontbg', {
-        delay: 1
-      })
+
+    t2.fromTo(".box", { scale: 20 }, {
+      scale: 80,
+      opacity: 0,
+      duration: 2,
+      ease: 'power1.inOut'
+    }).fromTo(".name-2", { fontSize: '4em' }, {
+      fontSize: '10em', duration: 5, ease: 'power1.inOut', onUpdate() {
+        const b = document.querySelector('.box')
+        const scaleRegex = /scale\(([^,]+),\s*([^)]+)\)/;
+        const match = b.style.transform.match(scaleRegex);
+        const scaleX = match[1]
+        console.log();
+        draw(scaleX * 16)
+      }
+    }, "<").to(".matrix", {
+      opacity: 1,
+      duration: 5, ease: 'power1.inOut'
+    }, "<")
+
 
   </script>
+
 
 
   <script>
@@ -199,14 +226,8 @@
     }
     drawMatrix();
 
-    function s() {
-      const bg = document.querySelectorAll('.frontbg')
-      bg.forEach(e => {
-        e.style.width = ((window.innerWidth / 2) - 10) + 'px'
-      })
-    }
 
-    s()
+
   </script>
 </body>
 
