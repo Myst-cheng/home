@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>3D 卡片效果（高光 DIV 模拟）</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background: #f0f0f0;
+    }
+
+    .container {
+      perspective: 1500px; /* 设置视角 */
+    }
+
+    .card {
+      width: 200px;
+      height: 300px;
+      background: #000;
+      border-radius: 15px;
+      position: relative;
+      overflow: hidden;
+      transform-style: preserve-3d;
+      transition: transform 0.1s ease;
+    }
+
+    .card-content {
+      padding: 20px;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
+
+    /* 新的高光 div 样式 */
+    .highlight {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100px; /* 初始大小 */
+      height: 100px; /* 初始大小 */
+      background: rgba(230, 176, 176, 0.6);
+      border-radius: 50%; /* 圆形高光 */
+      pointer-events: none;
+      transition: width 0.1s ease, height 0.1s ease;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="card" id="card">
+    <div class="card-content">
+      <h2>卡片标题</h2>
+      <p>这里是一些内容。</p>
+    </div>
+    <div class="highlight" id="highlight"></div> <!-- 高光 div -->
+  </div>
+</div>
+
+<script>
+  const card = document.getElementById('card');
+  const highlight = document.getElementById('highlight');
+  
+  card.addEventListener('mousemove', (e) => {
+    // 获取卡片相对于页面的位置信息
+    const rect = card.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left; // 鼠标X位置相对于卡片
+    const mouseY = e.clientY - rect.top;  // 鼠标Y位置相对于卡片
+
+    // 计算卡片旋转角度，最大旋转角度为 30 度
+    const rotateX = ((mouseY / card.offsetHeight) - 0.5) * 30; // Y轴旋转角度
+    const rotateY = ((mouseX / card.offsetWidth) - 0.5) * 30; // X轴旋转角度
+
+    // 更新卡片的transform属性来产生3D效果
+    card.style.transform = `rotateX(${-rotateX}deg) rotateY(${rotateY}deg)`;
+
+    // 更新高光的位置，根据鼠标位置设置高光的位置
+    const lightX = mouseX - highlight.offsetWidth / 2; // 高光X轴位置
+    const lightY = mouseY - highlight.offsetHeight / 2; // 高光Y轴位置
+    highlight.style.left = `${lightX}px`;
+    highlight.style.top = `${lightY}px`;
+
+    // 根据鼠标的距离动态调整高光的大小（模拟光照强度）
+    const maxSize = 100; // 高光的最大尺寸
+    const sizeFactor = 1 - Math.min(1, (Math.abs(mouseX - card.offsetWidth / 2) + Math.abs(mouseY - card.offsetHeight / 2)) / (card.offsetWidth / 2));
+    const newSize = maxSize * sizeFactor;
+    
+    highlight.style.width = `${newSize}px`;
+    highlight.style.height = `${newSize}px`;
+  });
+
+  // 鼠标移出卡片时恢复原位
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'rotateX(0deg) rotateY(0deg)';
+    highlight.style.width = '100px';
+    highlight.style.height = '100px';
+    highlight.style.left = '0';
+    highlight.style.top = '0';
+  });
+</script>
+
+</body>
+</html>

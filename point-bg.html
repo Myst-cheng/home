@@ -16,9 +16,9 @@
         const canvas = document.getElementById("matrixCanvas");
         const ctx = canvas.getContext("2d");
 
-        function drawMatrix() {
-            const w = window.innerWidth
-            const h = window.innerHeight
+        function drawMatrix(w=1920, h=1080) {
+            w = w ?? window.innerWidth
+            h = h ?? window.innerHeight
             canvas.width = w;
             canvas.height = h
             const spw = 30
@@ -34,7 +34,15 @@
                 }
             }
         }
-        drawMatrix();
+        let w = 1920
+        let h = 1080
+
+        // setInterval(() => {
+        //     drawMatrix(w, h);
+        //     w -= 1
+        //     h -= 1
+        // }, 50);
+        
     </script>
 </body>
 

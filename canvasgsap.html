@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GSAP + Canvas Demo</title>
+</head>
+<body>
+  <canvas id="myCanvas" width="400" height="300" style="border:1px solid #ccc;"></canvas>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+  <script>
+    const canvas = document.getElementById('myCanvas');
+    const ctx = canvas.getContext('2d');
+
+    const circle = { x: 50, y: 150, r: 20, alpha: 1 };
+
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.globalAlpha = circle.alpha;
+      ctx.beginPath();
+      ctx.arc(circle.x, circle.y, circle.r, 0, Math.PI * 2);
+      ctx.fillStyle = 'blue';
+      ctx.fill();
+      ctx.globalAlpha = 1;
+    }
+
+    gsap.ticker.add(draw);
+
+    const tl = gsap.timeline();
+    tl.to(circle, { x: 350, duration: 2, ease: "power1.inOut" })
+      .to(circle, { r: 50, duration: 1, ease: "back.out(2)" })
+      .to(circle, { alpha: 0, duration: 1 });
+  </script>
+</body>
+</html>
