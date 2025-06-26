@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GSAP SVG Path Animation</title>
+  <script src="./js/gsap.min.js"></script>
+</head>
+<body>
+  <svg width="200" height="200" viewBox="0 0 200 200">
+    <path id="myPath" d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80" stroke="black" fill="transparent"/>
+  </svg>
+  <script>
+    var path = document.getElementById("myPath");
+    var length = path.getTotalLength();
+
+    gsap.set(path, {
+      strokeDasharray: length,
+      strokeDashoffset: length
+    });
+
+    gsap.to(path, {
+      strokeDashoffset: 0,
+      duration: 3,
+      ease: "power2.inOut"
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas" height="500"></canvas>
+    <svg width="200" height="200" viewBox="0 0 200 200">
+        <path id="myPath" d="M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80" stroke="black" fill="transparent" />
+    </svg>
+    <script type="module">
+        import rough from './js/rough.js';
+        const rc = rough.canvas(document.getElementById('canvas'));
+        // rc.circle(50, 50, 80, { fill: 'red' }); // fill with red hachure
+        // rc.rectangle(120, 15, 80, 80, { fill: 'red' });
+        // rc.circle(50, 150, 80, {
+        //     fill: "rgb(10,150,10)",
+        //     fillWeight: 3 // thicker lines for hachure
+        // });
+        // rc.rectangle(220, 15, 80, 80, {
+        //     fill: 'red',
+        //     hachureAngle: 60, // angle of hachure,
+        //     hachureGap: 8
+        // });
+        // rc.rectangle(120, 105, 80, 80, {
+        //     fill: 'rgba(255,0,200,0.2)',
+        //     fillStyle: 'solid' // solid fill
+        // });
+
+        // rc.line(80, 120, 300, 100); // x1, y1, x2, y2
+
+        // rc.path('M80 80 A 45 45, 0, 0, 0, 125 125 L 125 80 Z', { fill: 'green', fillWeight: 3 });
+
+        function drawFlw(x, y, size, color) {
+            rc.rectangle(0, 0, 300, 300, { fill: 'white' });
+            rc.path(`M 50 50 L 50 ${size}`, { stroke: color })
+        }
+
+        function drawTri(x, y, size, color) {
+            rc.rectangle(0, 0, 300, 300, { fill: 'white' });
+            console.log(rc.path(`M ${x} ${y} L ${x + size} ${y} L ${x + size} ${y + size} Z`, { stroke: color }));
+        }
+        drawTri(150, 150, 50, 'red')
+
+        rc.path('M10 80 C 40 10, 65 10, 95 80 S 150 150, 180 80', { stroke: 'black', fill: 'transparent' });
+   
+
+        console.log(rc.path);
+
+        // let size = 50
+        // const timer = setInterval(() => {
+        //     drawFlw(150, 150, size, 'red')
+        //     size += 1
+        //     if(size > 100) {
+        //         clearInterval(timer)
+        //     }
+        // }, 60);
+
+    </script>
+</body>
+
+</html>
