@@ -52,11 +52,11 @@
   
   .hero-img-logo img {
     position: absolute;
-    top: 14%;
+    top: 50%;
     left: 65%;
-    transform: translate(-50%, 0);
-    width: 9em;
-    height: auto;
+    transform: translate(-50%, -50%);
+    height: 70vh;
+    width: auto;
     object-fit: contain;
   }
   
