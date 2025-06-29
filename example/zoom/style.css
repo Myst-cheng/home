@@ -1,0 +1,413 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: sans-serif;
+  overflow-x: hidden;
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+h1 {
+  text-transform: uppercase;
+  font-size: 1rem;
+  font-weight: 800;
+  line-height: 0.8;
+}
+
+p {
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  font-weight: 500;
+  line-height: 0.8;
+}
+
+section {
+  position: relative;
+  width: 100vw;
+  height: 100svh;
+  background-color: #111117;
+  /* background: linear-gradient(72deg, #111117, #111); */
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero-img-container,
+.hero-img-container img,
+.fade-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-img-logo img {
+  position: absolute;
+  top: 16%;
+  left: 65%;
+  transform: translate(-50%, 0);
+  width: 165px;
+  height: auto;
+  object-fit: contain;
+}
+
+.hero-img-copy {
+  position: absolute;
+  bottom: 25%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  will-change: opacity;
+  animation: float 3s infinite ease-in-out;
+}
+.hero-img-copy p {
+  font-size: 0.5rem;
+  color: #e0e0e0;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(20%);
+  }
+  100% {
+    transform: translateY(0%);
+  }
+}
+
+.fade-overlay {
+  background-color: #fff;
+  will-change: opacity;
+}
+
+.overlay {
+  position: absolute;
+  top: 0%;
+  left: 0;
+  transform-origin: center 25.6%;
+  width: 100%;
+  height: 200%;
+  z-index: 2;
+}
+
+.logo-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 200px;
+  height: 150px;
+  z-index: 3;
+}
+
+@media (max-width: 900px) {
+  h1 {
+    font-size: 2.5rem;
+    letter-spacing: 0;
+  }
+  p {
+    font-size: 1rem;
+  }
+}
+
+/* // - */
+
+/* / */
+
+.sticky-cards {
+  /* background-color: #111117; */
+  position: relative;
+}
+
+.card {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  will-change: transform;
+  width: 25%;
+  height: 50%;
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  background-color: #202020;
+  color: #fff;
+  overflow: hidden;
+}
+
+.card:hover {
+  cursor: pointer;
+}
+
+.card-img {
+  flex: 1 1 0;
+  min-height: 0;
+  width: 100%;
+}
+
+.card-content {
+  flex: 0 0 12px;
+  display: flex;
+  align-items: center;
+}
+
+.card-content p {
+  text-transform: uppercase;
+  font-size: 12px;
+  font-family: monospace;
+}
+
+@media (max-width: 900px) {
+  .card {
+    width: 75%;
+  }
+}
+
+/* text ------------------------------- */
+.copy-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+  border-radius: 2rem;
+}
+
+.copy-container h1 {
+  width: 70%;
+  color: #141414;
+  font-size: 5rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.hero .copy-container {
+  background-color: #f36d38;
+}
+
+.cta .copy-container {
+  background-color: #c6fe69;
+}
+
+.outro .copy-container {
+  background-color: #7178ff;
+}
+
+.anime-text {
+  width: 32%;
+  position: absolute;
+  right: 2em;
+}
+.anime-text p {
+  color: #e0e0e0;
+  text-align: left;
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.anime-text .word {
+  display: inline-block;
+  position: relative;
+  margin-right: 0.2rem;
+  margin-bottom: 0.2rem;
+  padding: 0.1rem 0.2rem;
+  border-radius: 2rem;
+  will-change: background-color, opacity;
+}
+
+.anime-text .word.keyword-wrapper {
+  margin: 0 0.4rem 0.2rem 0.2rem;
+}
+
+.anime-text .word span {
+  position: relative;
+}
+
+.anim-text .word span.keyword {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  border-radius: 2rem;
+  padding: 0.1rem 0;
+  color: #141414;
+}
+
+.anime-text .word span.keyword::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% + 1rem);
+  height: calc(100% + 0.4rem);
+  background-color: #fff;
+  border-radius: 2rem;
+  z-index: -1;
+}
+
+.anime-text .word,
+.anim-text .word span {
+  opacity: 0;
+}
+
+@media (max-width: 900px) {
+  .copy-container h1 {
+    width: 90%;
+    font-size: 2rem;
+  }
+  .anime-text {
+    width: 90%;
+  }
+  .anim-text p {
+    font-size: 1.25rem;
+  }
+  .anim-text .word {
+    margin-right: 0.1rem;
+    margin-bottom: 0.15rem;
+    padding: 0.1rem 0.2rem;
+  }
+
+  .anim-text .word.keyword-wrapper {
+    margin: 0 0.2rem 0.1rem 0.1rem;
+  }
+}
+
+.cards-step {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 150vw;
+  height: 600px;
+  will-change: transform;
+}
+
+.card-step {
+  position: absolute;
+  width: 500px;
+  height: 550px;
+  top: 50%;
+  left: 50%;
+  transform-origin: center center;
+  margin-left: -250px;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  will-change: transform;
+  background: #fff;
+  padding: 0.5em;
+  overflow: hidden;
+}
+
+.card-img-step {
+  flex: 1;
+  /* border-radius: 0.5em; */
+  overflow: hidden;
+  transform-origin: center center;
+  transition: all 0.2s;
+}
+
+.card-content-step {
+  width: 100%;
+  height: 60px;
+}
+
+.card-content-step p {
+  text-align: left;
+  color: #111;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.25;
+}
+
+.step-counter-step {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  margin: 2em;
+}
+
+.counter-title-step h1,
+.count-step h1 {
+  text-align: left;
+}
+
+.counter-title-step,
+.count-step {
+  position: relative;
+  width: 1200px;
+  height: 150px;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  overflow: hidden;
+}
+
+.count-step {
+  top: -10px;
+}
+
+.count-container-step {
+  position: relative;
+  transform: translateY(150px);
+  will-change: transform;
+}
+
+.step-counter-step h1 {
+  width: 100%;
+  position: relative;
+  color: #fff;
+  text-transform: uppercase;
+  font-weight: 900;
+  font-size: 150px;
+  line-height: 1;
+  letter-spacing: -0.04em;
+}
+.card-container-step h1 {
+  margin: 0.5em 0;
+}
+.card-container-step p {
+  text-align: left;
+  text-transform: none;
+  line-height: 1;
+  margin-bottom: 0.5em;
+  font-size: 0.5em;
+}
+.empty-step {
+  opacity: 0;
+}
+
+@media (max-width: 900px) {
+  .counter-title-step {
+    height: 30px;
+  }
+
+  .counter-title-step h1 {
+    font-size: 30px;
+  }
+
+  .count-step {
+    top: 0;
+    left: -10px;
+  }
+
+  .cards-step {
+    top: 27.5%;
+  }
+
+  .card-step {
+    width: 375px;
+    height: 500px;
+  }
+}
