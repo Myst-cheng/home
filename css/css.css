@@ -5,7 +5,8 @@
   }
   
   body {
-    font-family: sans-serif;
+    font-family: system-ui, -apple-system, sans-serif;
+    /* font-family: sans-serif; */
     overflow-x: hidden;
   }
   
@@ -51,10 +52,10 @@
   
   .hero-img-logo img {
     position: absolute;
-    top: 16%;
+    top: 14%;
     left: 65%;
     transform: translate(-50%, 0);
-    width: 165px;
+    width: 9em;
     height: auto;
     object-fit: contain;
   }
